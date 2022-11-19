@@ -15,6 +15,7 @@ package io.openmessaging.benchmark.worker;
 
 import java.io.File;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
 import java.util.List;
 
 import org.apache.bookkeeper.stats.StatsLogger;
@@ -60,7 +61,7 @@ public class WorkerHandler {
 
     private void handleInitializeDriver(Context ctx) throws Exception {
         // Save config to temp file
-        File tempFile = File.createTempFile("driver-configuration", "conf");
+        File tempFile = Files.createTempFile("driver-configuration", "conf").toFile();
         Files.write(ctx.bodyAsBytes(), tempFile);
 
         localWorker.initializeDriver(tempFile);
